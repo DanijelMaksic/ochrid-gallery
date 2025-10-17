@@ -1,0 +1,162 @@
+@import 'tailwindcss';
+
+@theme {
+   --breakpoint-*: initial;
+}
+
+@media screen and (max-width: 1024px) {
+   html {
+      font-size: 14px;
+   }
+}
+
+@media screen and (max-width: 390px) {
+   html {
+      font-size: 11px;
+   }
+}
+
+@custom-variant 2xl (@media (max-width: 1540px));
+@custom-variant xl (@media (max-width: 1290px));
+@custom-variant lg (@media (max-width: 1024px));
+@custom-variant md (@media (max-width: 768px));
+@custom-variant sm (@media (max-width: 640px));
+@custom-variant xs (@media (max-width: 450px));
+
+@custom-variant 2xl-reverse (@media (min-width: 2000px));
+@custom-variant lg-reverse (@media (min-width: 1025px));
+@custom-variant xs-reverse (@media (min-width: 451px));
+
+@theme {
+   --color-primary-950: #46413a;
+   --color-primary-900: #5a5248;
+   --color-primary-800: #7f7368;
+   --color-primary-700: #b39f8b;
+   --color-primary-600: #c2ae9a;
+   --color-primary-500: #d5c5b6;
+   --color-primary-400: #dfd1c4;
+   --color-primary-300: #e7ded1;
+   --color-primary-200: #efe7dd;
+   --color-primary-100: #f6f0e8;
+   --color-primary-50: #fcf9f6;
+   --color-primary-0: #fff;
+
+   --color-in_stock: #ceefd4;
+   --color-sold_out: #fddadf;
+   --color-in_stock_text: #2f823d;
+   --color-sold_out_text: #a74043;
+
+   --color-required: #a74043;
+   --color-underline: #7f7368;
+
+   --color-autofill_bg: #f9f5f1;
+   --color-autofill_text: #5a5248;
+
+   --color-upload_button_bg: #fff;
+   --color-upload_button_text: #5a5248;
+   --color-upload_button_border: #dfd1c4;
+
+   --color-toast: #fff;
+   --color-toast_text: #46413a;
+
+   --color-modal_shadow: #b39f8b;
+}
+
+button,
+[role='button'] {
+   cursor: pointer;
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+   -webkit-box-shadow: 0 0 0 30px var(--color-autofill_bg) inset !important;
+}
+
+input:-webkit-autofill {
+   -webkit-text-fill-color: var(--color-autofill_text) !important;
+}
+
+.focus-style {
+   @apply focus:outline-none focus:ring-2 focus:transition focus:ring-primary-700 focus:duration-200;
+}
+
+@layer components {
+   @keyframes pulse {
+      50% {
+         opacity: 0.5;
+      }
+   }
+
+   .animate-skeleton {
+      animation: pulse 1s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+   }
+
+   @keyframes pulse {
+      50% {
+         opacity: 0.5;
+      }
+   }
+
+   .round:last-child img {
+      border-end-start-radius: 7px;
+   }
+
+   .transition-custom {
+      transition: background-color 0.3s, border 0.3s, color 0.01s;
+   }
+
+   .transition-text {
+      transition: color 0.3s, background-color 0.3s, border 0.3s;
+   }
+
+   .underlined-text {
+      text-decoration: underline;
+      text-decoration-color: transparent;
+      transition: 0.1s;
+      text-decoration-thickness: 1.6px;
+      text-underline-offset: 3px;
+
+      -webkit-text-decoration-color: transparent;
+      -moz-text-decoration-color: transparent;
+   }
+
+   .underlined-text:hover {
+      text-decoration-color: var(--color-underline);
+
+      -webkit-text-decoration-color: var(--color-underline);
+      -moz-text-decoration-color: var(--color-underline);
+   }
+
+   ::file-selector-button {
+      font: inherit;
+      padding: 0.5rem 1rem;
+      margin-right: 0.9rem;
+      color: var(--color-upload_button_text);
+      background-color: var(--color-upload_button_bg);
+      border: 2px solid var(--color-upload_button_border);
+      border-radius: 0.4rem;
+      cursor: pointer;
+      transition: background-color 0.3s, border 0.3s, color 0.3s;
+   }
+
+   .no-spinners::-webkit-outer-spin-button,
+   .no-spinners::-webkit-inner-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+   }
+
+   @keyframes rotation {
+      0% {
+         transform: rotate(0deg);
+      }
+      100% {
+         transform: rotate(360deg);
+      }
+   }
+
+   .rotate {
+      animation: rotation 1s linear infinite;
+   }
+}
