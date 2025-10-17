@@ -7,7 +7,12 @@ export function useSetParams() {
 
    function handler(fieldName, value) {
       const params = new URLSearchParams(searchParams);
-      params.set(fieldName, value);
+      if (value === null || value.trim() === '') {
+         params.delete(fieldName);
+      } else {
+         params.set(fieldName, value);
+      }
+
       router.replace(`${pathname}?${params.toString()}`, { scroll: false });
    }
 

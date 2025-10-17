@@ -18,7 +18,11 @@ function Search({ field }) {
 
    // - Update URL param only when debounced input changes
    useEffect(() => {
-      handler('search', debouncedInput);
+      if (debouncedInput.trim() === '') {
+         handler('search', null);
+      } else {
+         handler('search', debouncedInput);
+      }
    }, [debouncedInput]); // eslint-disable-line
 
    return (
