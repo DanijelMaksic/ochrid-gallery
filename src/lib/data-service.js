@@ -5,7 +5,6 @@ export async function getItems() {
    const { data, error } = await supabase.from('items').select('*');
 
    if (error) {
-      console.error(error);
       throw new Error('Items could not be fetched');
    }
 
@@ -20,7 +19,6 @@ export async function getItem(slug) {
       .single();
 
    if (error) {
-      console.error(error);
       notFound();
    }
 
@@ -34,7 +32,6 @@ export async function getPopularItems() {
       .order('sales', { ascending: false });
 
    if (error) {
-      console.error(error);
       throw new Error('Items could not be fetched');
    }
 
@@ -44,12 +41,11 @@ export async function getPopularItems() {
 export async function getUser(email) {
    const { data, error } = await supabase
       .from('website-users')
-      .select('*')
+      .select('*, reviews(*, items(slug, name, image))')
       .eq('email', email)
       .single();
 
    if (error) {
-      console.error(error);
       throw new Error('User could not be found');
    }
 
@@ -62,7 +58,6 @@ export async function createUser(newUser) {
       .insert([newUser]);
 
    if (error) {
-      console.error(error);
       throw new Error('User could not be created');
    }
 
@@ -76,7 +71,6 @@ export async function getWishlist(id) {
       .eq('user_id', id);
 
    if (error) {
-      console.error(error);
       throw new Error('Wishlist could not be fetched');
    }
 
@@ -90,7 +84,6 @@ export async function getWishlistDates(id) {
       .eq('user_id', id);
 
    if (error) {
-      console.error(error);
       throw new Error('Wishlist date could not be fetched');
    }
 
@@ -104,7 +97,6 @@ export async function getWishlistCount(id) {
       .eq('user_id', id);
 
    if (error) {
-      console.error(error);
       throw new Error('Wishlist count could not be fetched');
    }
 
@@ -134,7 +126,6 @@ export async function getArchivedOrders() {
       .order('order_date', { ascending: false });
 
    if (error) {
-      console.error(error);
       throw new Error('Archived orders could not be fetched');
    }
 
@@ -148,7 +139,6 @@ export async function getArchivedOrderCount(email) {
       .eq('email', email);
 
    if (error) {
-      console.error(error);
       throw new Error('Archived order count could not be fetched');
    }
 
@@ -159,7 +149,6 @@ export async function getAddresses() {
    const { data, error } = await supabase.from('address-book').select('*');
 
    if (error) {
-      console.error(error);
       throw new Error('Addresses could not be fetched');
    }
 
@@ -173,7 +162,6 @@ export async function getAddressCount(email) {
       .eq('billing_email', email);
 
    if (error) {
-      console.error(error);
       throw new Error('Address count could not be fetched');
    }
 
@@ -215,7 +203,6 @@ export async function placeOrder(newOrderString) {
       .select();
 
    if (error) {
-      console.error(error);
       throw new Error('Order could not be placed');
    }
 }
@@ -235,7 +222,6 @@ async function removeQ(cartItem) {
       .select();
 
    if (error) {
-      console.error(error);
       throw new Error('Item could not be updated');
    }
 
@@ -265,21 +251,19 @@ export async function getReviews() {
       .order('created_at', { ascending: false });
 
    if (error) {
-      console.error(error);
       throw new Error('Reviews could not be fetched');
    }
 
    return data;
 }
 
-export async function getReviewCount(email) {
+export async function getReviewCount(userId) {
    const { count, error } = await supabase
       .from('reviews')
       .select('id', { count: 'exact', head: true })
-      .eq('user_email', email);
+      .eq('user_id', userId);
 
    if (error) {
-      console.error(error);
       throw new Error('Review count could not be fetched');
    }
 

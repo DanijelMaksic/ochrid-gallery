@@ -160,7 +160,7 @@ function ReviewForm({ onClose, session, item_id }) {
 
             <input type="hidden" name="recommended" value={recommend} />
 
-            <input type="hidden" name="user_email" value={session.user.email} />
+            <input type="hidden" name="user_id" value={session.user.userId} />
 
             <input type="hidden" name="item_id" value={item_id} />
          </div>

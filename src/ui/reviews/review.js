@@ -27,7 +27,7 @@ function Review({ review, session, item_id }) {
       dislikes,
       username,
       created_at,
-      user_email,
+      user_id,
       id: review_id,
    } = review;
 
@@ -48,7 +48,7 @@ function Review({ review, session, item_id }) {
          { reviewId: review_id, isLiked: true },
       ]);
 
-      if (dislikedReview.isDisliked) {
+      if (dislikedReview?.isDisliked) {
          const dislikeCount = dislikes - 1;
          await dislikeAction(review_id, item_id, session, dislikeCount);
          setDislikedReviews((items) =>
@@ -136,7 +136,7 @@ function Review({ review, session, item_id }) {
             <div className="flex items-center gap-14 lg:gap-4 lg:flex-col md:flex-row md:mt-6 xs:mt-4 md:gap-12 xs:gap-10">
                <div
                   className={`flex items-center gap-6 lg:text-xl ${
-                     user_email === session?.user.email &&
+                     user_id === session?.user.id &&
                      'pointer-events-none opacity-80'
                   }`}
                >
@@ -197,7 +197,7 @@ function Review({ review, session, item_id }) {
                   )}
                </div>
 
-               {session?.user.email === review.user_email && (
+               {session?.user.email === review.user_id && (
                   <ReviewOperations review={review} />
                )}
             </div>

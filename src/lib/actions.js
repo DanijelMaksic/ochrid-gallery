@@ -9,7 +9,7 @@ import {
    reviewFormSchema,
 } from '@/src/lib/schema';
 import { supabase } from '@/src/lib/supabase';
-import { auth, signIn, signOut } from '@/src/lib/auth';
+import { signIn, signOut } from '@/src/lib/auth';
 import { placeOrder, removeQuantity } from '@/src/lib/data-service';
 
 export async function signInAction() {
@@ -208,7 +208,7 @@ export async function createReviewAction(previousState, formData) {
    }
 
    // Non user input data
-   const user_email = formData.get('user_email');
+   const user_id = formData.get('user_id');
    const item_id = formData.get('item_id');
 
    const { error } = await supabase
@@ -216,7 +216,7 @@ export async function createReviewAction(previousState, formData) {
       .insert([
          {
             ...result.data,
-            user_email,
+            user_id,
             item_id,
             likes: 0,
             dislikes: 0,

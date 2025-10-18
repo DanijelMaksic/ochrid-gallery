@@ -4,7 +4,9 @@ import Link from 'next/link';
 import { motion } from 'motion/react';
 import ReviewPreview from '@/src/ui/reviews/review-preview';
 
-function Reviews({ reviews, items, reviewsExist, session }) {
+function Reviews({ user, session }) {
+   const reviews = user.reviews;
+
    return (
       <motion.div
          initial={{ opacity: 0 }}
@@ -20,16 +22,15 @@ function Reviews({ reviews, items, reviewsExist, session }) {
             {reviews &&
                reviews.map(
                   (review) =>
-                     review.user_email === session.user.email && (
+                     review.user_id === session.user.userId && (
                         <ReviewPreview
                            review={review}
                            key={review.id}
-                           items={items}
                         />
                      )
                )}
 
-            {(!reviewsExist || !reviews.length) && (
+            {!reviews.length && (
                <div className="py-10 px-8 xs:px-2 border-2 border-primary-400 rounded-md flex bg-primary-50 items-center justify-center flex-col text-center xs:mb-32">
                   <span className="text-3xl 2xl:text-2xl md:text-3xl font-semibold mb-4">
                      No reviews found

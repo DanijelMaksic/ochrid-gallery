@@ -46,7 +46,7 @@ function ReviewFilterAndWrite({ reviews, orders, id, session }) {
 
    // Check if current item was already reviewed
    const userReviews = reviews.filter(
-      (review) => review.user_email === session?.user.email
+      (review) => review.user_id === session?.user.id
    );
    const currentItemId = Number(pathname.slice(7));
    const wasReviewedArr = userReviews.map(

@@ -10,12 +10,12 @@ function OrderedItem({ item, items }) {
 
    const [cartItem] = items.filter((item) => item.id === itemId);
 
-   const { image, name, id } = cartItem;
+   const { image, name, slug } = cartItem;
 
    return (
       <div className="flex items-center">
          <Link
-            href={`/items/${id}`}
+            href={`/items/${slug}`}
             className="flex items-center gap-1 border-2 border-primary-400 rounded-md overflow-hidden hover:opacity-85 transition-all duration-200 sm:w-full"
          >
             <div className="relative h-32 2xl:h-28 w-30 2xl:w-24">

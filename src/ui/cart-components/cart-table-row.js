@@ -27,7 +27,7 @@ function CartTableRow({ cartData, items, cart, setCart, type }) {
    }, [setIsSmall, setIsMobile]);
 
    const [item] = items?.filter((item) => cartData.itemId === item.id);
-   console.log(item);
+
    const { name, image, id, slug } = item;
 
    if (type === 'modify' && !isSmall && !isMobile)

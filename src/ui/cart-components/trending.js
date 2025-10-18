@@ -27,11 +27,11 @@ async function Trending() {
 }
 
 function TrendingItem({ item }) {
-   const { name, price, image, id, in_stock } = item;
+   const { name, price, image, slug, in_stock } = item;
 
    return (
       <Link
-         href={`/items/${id}`}
+         href={`/items/${slug}`}
          className={`flex flex-col border-2 border-primary-400 rounded-md overflow-hidden hover:opacity-85 transition-all duration-200 ${
             !in_stock && 'opacity-65'
          }`}

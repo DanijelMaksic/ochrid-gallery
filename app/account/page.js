@@ -15,14 +15,14 @@ export const metadata = {
 
 async function Page() {
    const session = await auth();
-   const userEmail = session.user.email;
+   const { email: userEmail, userId } = session.user;
 
    const [user, orderCount, wishlistCount, reviewCount, addressCount] =
       await Promise.all([
          getUser(userEmail),
          getArchivedOrderCount(userEmail),
-         getWishlistCount(session.user.userId),
-         getReviewCount(userEmail),
+         getWishlistCount(userId),
+         getReviewCount(userId),
          getAddressCount(userEmail),
       ]);
 

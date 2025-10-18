@@ -1,5 +1,5 @@
 import { auth } from '@/src/lib/auth';
-import { getItems, getReviews } from '@/src/lib/data-service';
+import { getItems, getReviews, getUser } from '@/src/lib/data-service';
 
 import Reviews from '@/app/account/reviews/reviews';
 
@@ -8,24 +8,10 @@ export const metadata = {
 };
 
 async function Page() {
-   const [session, items, reviews] = await Promise.all([
-      auth(),
-      getItems(),
-      getReviews(),
-   ]);
+   const session = await auth();
+   const user = await getUser(session?.user?.email);
 
-   const reviewsExist = reviews.some(
-      (review) => review.user_email === session?.user?.email
-   );
-
-   return (
-      <Reviews
-         items={items}
-         session={session}
-         reviews={reviews}
-         reviewsExist={reviewsExist}
-      />
-   );
+   return <Reviews session={session} user={user} />;
 }
 
 export default Page;

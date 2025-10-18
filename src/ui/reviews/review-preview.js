@@ -8,7 +8,7 @@ import { IoIosCheckmarkCircleOutline } from 'react-icons/io';
 
 import ReviewOperations from '@/src/ui/reviews/review-operations';
 
-function ReviewPreview({ review, items }) {
+function ReviewPreview({ review }) {
    const {
       title,
       content,
@@ -19,14 +19,12 @@ function ReviewPreview({ review, items }) {
       created_at,
    } = review;
 
-   const [reviewedItem] = items.filter((item) => item.id === review.item_id);
-
-   const { name, image, id } = reviewedItem;
+   const { name, image, slug } = review.items;
 
    return (
       <div className="bg-primary-50 border-2 border-primary-500 rounded-md text-xl grid grid-cols-[2.4fr_10fr] lg:grid-cols-none lg:grid-rows-[3.1rem_1fr] mx-24 2xl:mx-0">
          <Link
-            href={`/items/${id}`}
+            href={`/items/${slug}`}
             className="flex flex-col overflow-hidden hover:opacity-85 transition-all duration-200"
          >
             <div className="relative h-full lg:h-0">
