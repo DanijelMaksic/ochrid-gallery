@@ -41,7 +41,7 @@ export async function getPopularItems() {
 export async function getUser(email) {
    const { data, error } = await supabase
       .from('website-users')
-      .select('*, reviews(*, items(slug, name, image))')
+      .select('*, reviews(*, items(slug, name, image)), address-book(*)')
       .eq('email', email)
       .single();
 

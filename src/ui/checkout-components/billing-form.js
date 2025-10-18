@@ -28,10 +28,6 @@ function BillingForm({ children, session, addresses }) {
       errors: {},
    });
 
-   const currentAddresses = addresses.filter(
-      (address) => address.billing_email === session.user.email
-   );
-
    async function onSubmit(e) {
       e.preventDefault();
       const formData = new FormData(e.currentTarget);
@@ -68,7 +64,7 @@ function BillingForm({ children, session, addresses }) {
          </div>
 
          {addresses.some(
-            (address) => address.billing_email === session.user.email
+            (address) => address.user_id === session.user.userId
          ) && (
             <>
                <h3 className="text-2xl 2xl:text-xl font-semibold mt-4 2xl:mt-0 text-center xs:px-6 text-nowrap">
@@ -82,14 +78,14 @@ function BillingForm({ children, session, addresses }) {
                   className={`${
                      isPending && 'pointer-events-none opacity-50'
                   } ${
-                     currentAddresses.length === 1
+                     addresses.length === 1
                         ? 'flex items-center justify-center'
                         : 'grid grid-cols-2 gap-5 2xl:gap-3 2xl:grid-cols-1'
                   }`}
                >
                   {addresses.map(
                      (address) =>
-                        address.billing_email === session.user.email && (
+                        address.user_id === session.user.userId && (
                            <AddressPreview key={address.id} address={address} />
                         )
                   )}

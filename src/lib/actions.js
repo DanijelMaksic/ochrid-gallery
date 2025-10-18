@@ -121,6 +121,7 @@ export async function createAddressAction(previousState, formData) {
    }
 
    const billing_email = formData.get('email');
+   const user_id = formData.get('user_id');
 
    const { error } = await supabase
       .from('address-book')
@@ -129,6 +130,7 @@ export async function createAddressAction(previousState, formData) {
             ...result.data,
             billing_country,
             billing_email,
+            user_id,
          },
       ])
       .select();

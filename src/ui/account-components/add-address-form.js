@@ -144,6 +144,7 @@ function AddAddressForm({ children, onClose, session }) {
          </FormRow>
 
          <input type="hidden" name="email" value={session.user.email} />
+         <input type="hidden" name="user_id" value={session.user.userId} />
 
          <button
             type="submit"
