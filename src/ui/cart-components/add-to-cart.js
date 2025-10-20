@@ -7,8 +7,8 @@ import { AnimatePresence } from 'motion/react';
 import { useCart } from '@/src/contexts/cart-context';
 
 import ItemCarted from '@/src/ui/cart-components/item-carted';
-import ModalWindow from '@/src/ui/cart-components/modal-window';
 import WishlistButton from '@/src/ui/wishlist/wishlist-button';
+import ModalWindow from '@/src/ui/cart-components/modal-window';
 import QuantitySelector from '@/src/ui/cart-components/quantity-selector';
 
 function AddToCart({ inStock, item, user, session, isWishlisted }) {
