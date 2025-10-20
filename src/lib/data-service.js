@@ -41,7 +41,9 @@ export async function getPopularItems() {
 export async function getUser(email) {
    const { data, error } = await supabase
       .from('website-users')
-      .select('*, reviews(*, items(slug, name, image)), address-book(*)')
+      .select(
+         '*, reviews(*, items(slug, name, image)), address-book(*), archive(*)'
+      )
       .eq('email', email)
       .single();
 
@@ -143,16 +145,6 @@ export async function getArchivedOrderCount(email) {
    }
 
    return count || 0;
-}
-
-export async function getAddresses() {
-   const { data, error } = await supabase.from('address-book').select('*');
-
-   if (error) {
-      throw new Error('Addresses could not be fetched');
-   }
-
-   return data;
 }
 
 export async function getAddressCount(email) {

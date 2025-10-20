@@ -3,8 +3,8 @@
 import { motion } from 'motion/react';
 import PastOrder from '@/src/ui/account-components/past-order';
 
-function OrderHistory({ filteredOrders, items }) {
-   if (!filteredOrders.length)
+function OrderHistory({ orders, items }) {
+   if (!orders.length)
       return (
          <motion.div
             initial={{ opacity: 0 }}
@@ -37,7 +37,7 @@ function OrderHistory({ filteredOrders, items }) {
          </h1>
 
          <main className="flex flex-col gap-6 2xl:gap-5">
-            {filteredOrders.map((order) => (
+            {orders.map((order) => (
                <PastOrder order={order} key={order.id} items={items} />
             ))}
          </main>

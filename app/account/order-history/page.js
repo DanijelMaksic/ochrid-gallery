@@ -1,5 +1,5 @@
 import { auth } from '@/src/lib/auth';
-import { getArchivedOrders, getItems } from '@/src/lib/data-service';
+import { getArchivedOrders, getItems, getUser } from '@/src/lib/data-service';
 
 import OrderHistory from '@/app/account/order-history/order-history';
 
@@ -8,17 +8,11 @@ export const metadata = {
 };
 
 async function Page() {
-   const [session, items, orders] = await Promise.all([
-      auth(),
-      getItems(),
-      getArchivedOrders(),
-   ]);
+   const [session, items] = await Promise.all([auth(), getItems()]);
 
-   const filteredOrders = orders.filter(
-      (order) => order.email === session.user.email
-   );
+   const { archive: orders } = await getUser(session?.user?.email);
 
-   return <OrderHistory filteredOrders={filteredOrders} items={items} />;
+   return <OrderHistory orders={orders} items={items} />;
 }
 
 export default Page;
