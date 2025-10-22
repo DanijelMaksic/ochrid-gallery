@@ -14,16 +14,8 @@ const garamond = EB_Garamond({
    weight: '500',
 });
 
-function ItemDetails({
-   item,
-   session,
-   reviews,
-   items,
-   orders,
-   user,
-   isWishlisted,
-}) {
-   const { image, name, price, in_stock, id, slug } = item;
+function ItemDetails({ item, session, reviews, orders, user, isWishlisted }) {
+   const { image, name, price, in_stock, id } = item;
 
    const filteredItems = reviews.filter((review) => review.item_id === id);
 

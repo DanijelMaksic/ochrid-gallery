@@ -36,7 +36,7 @@ function AddToCart({ inStock, item, user, session, isWishlisted }) {
 
    return (
       <div className="flex flex-col">
-         <div className="flex justify-between mt-8 mb-8 xs:mb-12 xs:flex-col xs:gap-6 xs:mt-4">
+         <div className="flex justify-between gap-[6.55rem] md:gap-16 mt-8 mb-8 xs:mb-12 xs:flex-col xs:gap-6 xs:mt-4">
             <QuantitySelector
                inStock={inStock}
                count={count}
