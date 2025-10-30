@@ -19,7 +19,7 @@ function CartTable({ cart, setCart, items, type, setIsOpenModal }) {
          <div className="2xl-reverse:mx-auto mx-32 xl:mx-16 md:mx-8 sm:mx-6 xs:pt-12 xs:pb-10 pt-10 2xl:pt-8 pb-20 flex flex-col max-w-350">
             <div className="flex justify-between items-center mb-8 xs:mb-4">
                <h2 className="text-4xl 2xl:text-3xl font-semibold">
-                  Shopping Cart
+                  Shopping cart
                </h2>
 
                <button
@@ -50,14 +50,14 @@ function CartTable({ cart, setCart, items, type, setIsOpenModal }) {
          <div className="mx-auto xl:mx-14 md:mx-8 sm:mx-6 xs:pt-12 xs:pb-10 pt-10 2xl:pt-8 pb-10 flex flex-col max-w-350">
             <div className="flex justify-between items-center mb-8 xs:mb-4">
                <h2 className="text-4xl 2xl:text-3xl font-semibold">
-                  Review Cart
+                  Review cart
                </h2>
 
                <Link
                   href={'/payment-method'}
                   className="text-lg 2xl:text-base md:text-lg uppercase underlined-text"
                >
-                  &larr; Back{!isMobile && ' to Payment Method'}
+                  &larr; Back{!isMobile && ' to Payment method'}
                </Link>
             </div>
 

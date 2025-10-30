@@ -18,7 +18,7 @@ function BillingDetails() {
       >
          <div className="mx-auto pb-12 2xl:mx-0 2xl:px-12 lg:px-0 md:px-8 xs:px-6 flex flex-col gap-8 w-full max-w-230">
             <h2 className="text-4xl 2xl:text-3xl font-semibold">
-               Billing Details
+               Billing details
             </h2>
 
             <div className="flex xs:flex-col gap-12 2xl:gap-8 text-xl 2xl:text-lg border-2 border-primary-400 rounded-md px-12 2xl:px-10 py-6 2xl:py-5">

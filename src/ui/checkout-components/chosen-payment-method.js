@@ -17,7 +17,7 @@ function ChosenPaymentMethod() {
             className="self-start 2xl-reverse:self-center px-46 2xl:px-26 xl:px-12 lg:px-30 md:px-8  pb-20 flex flex-col"
          >
             <h2 className="text-4xl 2xl:text-3xl font-semibold mb-8">
-               Payment Method
+               Payment method
             </h2>
 
             <div className="flex items-center gap-6 justify-center px-6 py-3 border-2 border-primary-500 rounded-md w-fit">
@@ -25,7 +25,7 @@ function ChosenPaymentMethod() {
 
                <div className="flex flex-col items-center">
                   <h3 className="text-2xl 2xl:text-xl font-semibold">
-                     Debit Card
+                     Debit card
                   </h3>
                   <span className="text-xl 2xl:text-lg">Online checkout</span>
                </div>
@@ -42,7 +42,7 @@ function ChosenPaymentMethod() {
             className="self-start 2xl-reverse:self-center px-46 2xl:px-26 xl:px-12 lg:px-30 md:px-8 pb-20 flex flex-col"
          >
             <h2 className="text-4xl 2xl:text-3xl font-semibold mb-8">
-               Payment Method
+               Payment method
             </h2>
 
             <div className="flex items-center gap-6 justify-center px-6 py-3 border-2 border-primary-500 rounded-md w-fit">
