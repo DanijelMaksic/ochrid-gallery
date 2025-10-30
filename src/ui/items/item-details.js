@@ -29,7 +29,7 @@ function ItemDetails({ item, session, reviews, orders, user, isWishlisted }) {
          <div className="grid grid-cols-[1.2fr_1fr] gap-16 2xl:gap-12 lg:grid-cols-1 xs:gap-4">
             <ItemImage name={name} image={image} />
 
-            <div className="flex flex-col transition-text justify-between max-w-130 lg:gap-4 md:gap-8 sm:mx-4 xs:mx-6 xs:gap-0">
+            <div className="flex flex-col transition-text justify-between max-w-130 min-w-110 lg:min-w-125 xs:min-w-fit lg:gap-4 md:gap-8 sm:mx-4 xs:mx-6 xs:gap-0">
                <div className="flex flex-col gap-6">
                   <h2
                      className={`${

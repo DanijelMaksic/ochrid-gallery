@@ -24,7 +24,7 @@ function WishlistButton({ userId, itemId, isWishlisted }) {
    return (
       <button
          onClick={!isWishlisted ? handleAdd : handleRemove}
-         className={`self-end border-2 border-primary-500 rounded-md text-xl 2xl:text-lg lg:text-2xl xs:text-2xl px-4 py-1 flex items-center gap-2 md:px-6 md:py-2 hover:bg-primary-100 transition-custom xs:self-start ${
+         className={`self-end text-nowrap border-2 border-primary-500 rounded-md text-xl 2xl:text-lg lg:text-2xl xs:text-2xl px-4 py-1 flex items-center gap-2 md:px-6 md:py-2 hover:bg-primary-100 transition-custom xs:self-start ${
             isPending && 'pointer-events-none opacity-70'
          }`}
       >
