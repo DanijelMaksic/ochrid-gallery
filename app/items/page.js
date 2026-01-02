@@ -11,20 +11,20 @@ export const metadata = {
 };
 
 async function Page({ searchParams }) {
-   const items = await getItems();
+   const [params, items] = await Promise.all([searchParams, getItems()]);
 
    if (!items.length) return null;
 
    let filteredItems;
 
    // FILTER
-   const filter = searchParams?.show ?? 'all';
+   const filter = params?.show ?? 'all';
    if (filter === 'all') filteredItems = items;
    if (filter === 'in-stock')
       filteredItems = items.filter((item) => item.in_stock === true);
 
    // SORT
-   const sort = searchParams?.sort ?? 'created_at-asc';
+   const sort = params?.sort ?? 'created_at-asc';
 
    const [field, direction] = sort.split('-');
 
@@ -54,7 +54,7 @@ async function Page({ searchParams }) {
 
    // SEARCH QUERY
 
-   const searchQuery = searchParams?.search || '';
+   const searchQuery = params?.search || '';
    const searchedItems = sortedItems.filter(
       (item) =>
          item.name?.toLowerCase().includes(searchQuery) ||
@@ -63,7 +63,7 @@ async function Page({ searchParams }) {
 
    // PAGINATION
 
-   const page = !searchParams?.page ? 1 : searchParams?.page;
+   const page = !params?.page ? 1 : params?.page;
 
    const from = (page - 1) * Number(process.env.NEXT_PUBLIC_ITEMS_PAGE_SIZE);
    const to = from + Number(process.env.NEXT_PUBLIC_ITEMS_PAGE_SIZE);

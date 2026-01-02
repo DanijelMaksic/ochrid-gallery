@@ -9,10 +9,11 @@ import {
 } from '@/src/lib/data-service';
 
 async function Page({ params }) {
+   const resolvedParams = await params;
    const [session, items, item, reviews, orders] = await Promise.all([
       auth(),
       getItems(),
-      getItem(params.slug),
+      getItem(resolvedParams.slug),
       getReviews(),
       getArchivedOrders(),
    ]);
