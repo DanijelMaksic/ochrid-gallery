@@ -2,6 +2,9 @@ import Logo from '@/src/ui/layout-components/logo';
 import Link from 'next/link';
 
 function Footer() {
+   const startYear = 2025;
+   const currentYear = new Date().getFullYear();
+
    return (
       <footer className="bg-primary-200 px-24 pt-12 pb-20 flex flex-col gap-6 lg:gap-8 md:gap-10 xs:px-12">
          <Logo />
@@ -43,7 +46,10 @@ function Footer() {
                   </Link>
                   .
                </div>
-               <span>Copyright ©2025 Ochrid gallery, All rights reserved</span>
+               <span>
+                  Copyright ©{startYear}−{currentYear} Ochrid gallery, All
+                  rights reserved
+               </span>
             </div>
          </div>
       </footer>
