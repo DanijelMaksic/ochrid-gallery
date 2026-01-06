@@ -1,6 +1,15 @@
+'use client';
+
+import { useEffect } from 'react';
+import { usePathname } from 'next/navigation';
+
 import SideNavigation from '@/src/ui/layout-components/side-navigation';
 
 function AccountLayout({ children }) {
+   useEffect(() => {
+      window.scrollTo(0, 0);
+   }, [usePathname()]);
+
    return (
       <div className="relative grid grid-cols-[16rem_1fr] md:grid-cols-[1fr_9fr] xs:grid-cols-none h-full my-12 xs:my-0 xs:mb-4">
          <SideNavigation />
