@@ -104,11 +104,17 @@ input:-webkit-autofill {
    }
 
    .transition-custom {
-      transition: background-color 0.3s, border 0.3s, color 0.01s;
+      transition:
+         background-color 0.3s,
+         border 0.3s,
+         color 0.01s;
    }
 
    .transition-text {
-      transition: color 0.3s, background-color 0.3s, border 0.3s;
+      transition:
+         color 0.3s,
+         background-color 0.3s,
+         border 0.3s;
    }
 
    .underlined-text {
@@ -138,7 +144,10 @@ input:-webkit-autofill {
       border: 2px solid var(--color-upload_button_border);
       border-radius: 0.4rem;
       cursor: pointer;
-      transition: background-color 0.3s, border 0.3s, color 0.3s;
+      transition:
+         background-color 0.3s,
+         border 0.3s,
+         color 0.3s;
    }
 
    .no-spinners::-webkit-outer-spin-button,

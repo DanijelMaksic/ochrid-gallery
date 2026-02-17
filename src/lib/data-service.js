@@ -29,7 +29,9 @@ export async function getPopularItems() {
    const { data, error } = await supabase
       .from('items')
       .select('*')
-      .order('sales', { ascending: false });
+      .eq('in_stock', true)
+      .order('sales', { ascending: false })
+      .limit(5);
 
    if (error) {
       throw new Error('Items could not be fetched');
@@ -42,7 +44,7 @@ export async function getUser(email) {
    const { data, error } = await supabase
       .from('website-users')
       .select(
-         '*, reviews(*, items(slug, name, image)), address-book(*), archive(*)'
+         '*, reviews(*, items(slug, name, image)), address-book(*), archive(*)',
       )
       .eq('email', email)
       .single();

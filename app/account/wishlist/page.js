@@ -7,7 +7,7 @@ import { getWishlistDates, getWishlist } from '@/src/lib/data-service';
 import Search from '@/src/ui/operations/search';
 import Pagination from '@/src/ui/operations/pagination';
 import WishlistItem from '@/src/ui/wishlist/wishlist-item';
-import SortOperations from '@/src/ui/operations/sort-opearions';
+import SortOperations from '@/src/ui/operations/sort-operations';
 import FilterOperations from '@/src/ui/operations/filter-opearions';
 
 export const metadata = {
@@ -78,7 +78,7 @@ async function Page({ searchParams }) {
 
    if (field === 'created_at')
       sortedItems = filteredItems.sort(
-         (a, b) => (new Date(a[field]) - new Date(b[field])) * dateModifier
+         (a, b) => (new Date(a[field]) - new Date(b[field])) * dateModifier,
       );
 
    sortedItems = filteredItems.sort((a, b) => (a[field] - b[field]) * modifier);
@@ -89,7 +89,7 @@ async function Page({ searchParams }) {
    const searchedItems = sortedItems.filter(
       (item) =>
          item.name?.toLowerCase().includes(searchQuery) ||
-         item.name?.includes(searchQuery)
+         item.name?.includes(searchQuery),
    );
 
    // PAGINATION

@@ -31,6 +31,11 @@ export const metadata = {
 };
 
 export default function RootLayout({ children }) {
+   // TODO: Fix useSearchParams
+   // TODO: No exit animation for "Hide" filter
+   // TODO: Modal exit animation
+   // TODO: Exit animation for address book in billing
+
    return (
       <SessionProvider>
          <html lang="en">

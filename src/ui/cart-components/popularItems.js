@@ -4,29 +4,25 @@ import Image from 'next/image';
 import { formatCurrency } from '@/src/utils/helpers';
 import { getPopularItems } from '@/src/lib/data-service';
 
-async function Trending() {
-   const trendingItems = await getPopularItems();
-
-   const filteredItems = trendingItems.filter((item) => item.in_stock === true);
-
-   const firstFiveItems = filteredItems.slice(0, 5);
+async function PopularItems() {
+   const popularItems = await getPopularItems();
 
    return (
       <div className="flex flex-col items-center gap-8 px-32 xl:px-16 lg:px-32 md:px-8 sm:px-16 xs:px-6 py-10 bg-primary-50">
          <h2 className="text-4xl 2xl:text-3xl font-semibold self-start justify-self-start 2xl-reverse:self-center 2xl-reverse:justify-self-center">
-            Trending Products
+            Popular Products
          </h2>
 
          <div className="grid grid-cols-5 gap-18 2xl:gap-12 xl:gap-8 lg:gap-12 md:gap-8 xs:gap-6 mb-8 lg:grid-cols-3 sm:grid-cols-2 xs:grid-cols-1 xs:px-14 max-w-fit">
-            {firstFiveItems.map((item) => (
-               <TrendingItem item={item} key={item.id} />
+            {popularItems.map((item) => (
+               <PopularItem item={item} key={item.id} />
             ))}
          </div>
       </div>
    );
 }
 
-function TrendingItem({ item }) {
+function PopularItem({ item }) {
    const { name, price, image, slug, in_stock } = item;
 
    return (
@@ -63,4 +59,4 @@ function TrendingItem({ item }) {
    );
 }
 
-export default Trending;
+export default PopularItems;

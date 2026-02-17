@@ -3,8 +3,8 @@ import { getItems } from '@/src/lib/data-service';
 
 import Summary from '@/src/ui/cart-components/summary';
 import Progress from '@/src/ui/cart-components/progress';
-import Trending from '@/src/ui/cart-components/trending';
 import ShoppingCart from '@/src/ui/cart-components/shopping-cart';
+import PopularItems from '@/src/ui/cart-components/popularItems';
 
 export const metadata = {
    title: 'Cart',
@@ -23,7 +23,7 @@ async function Page() {
             <Summary type="cart" session={session} />
          </div>
 
-         <Trending />
+         <PopularItems />
       </div>
    );
 }
