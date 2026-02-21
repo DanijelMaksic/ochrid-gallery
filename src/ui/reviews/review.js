@@ -3,6 +3,7 @@
 import { useState } from 'react';
 
 import { format } from 'date-fns';
+import { AnimatePresence } from 'motion/react';
 import { IoCloseCircleOutline } from 'react-icons/io5';
 import { IoIosCheckmarkCircleOutline } from 'react-icons/io';
 import { dislikeAction, likeAction } from '@/src/lib/actions';
@@ -33,7 +34,7 @@ function Review({ review, session, item_id }) {
 
    const likedReview = likedReviews.find((item) => item.reviewId === review_id);
    const dislikedReview = dislikedReviews.find(
-      (item) => item.reviewId === review_id
+      (item) => item.reviewId === review_id,
    );
 
    async function handleLike() {
@@ -52,7 +53,7 @@ function Review({ review, session, item_id }) {
          const dislikeCount = dislikes - 1;
          await dislikeAction(review_id, item_id, session, dislikeCount);
          setDislikedReviews((items) =>
-            items.filter((item) => item.reviewId !== review_id)
+            items.filter((item) => item.reviewId !== review_id),
          );
       }
    }
@@ -65,7 +66,7 @@ function Review({ review, session, item_id }) {
       const likeCount = likes - 1;
       await likeAction(review_id, item_id, session, likeCount);
       setLikedReviews((items) =>
-         items.filter((item) => item.reviewId !== review_id)
+         items.filter((item) => item.reviewId !== review_id),
       );
    }
 
@@ -85,7 +86,7 @@ function Review({ review, session, item_id }) {
          const likeCount = likes - 1;
          await likeAction(review_id, item_id, session, likeCount);
          setLikedReviews((items) =>
-            items.filter((item) => item.reviewId !== review_id)
+            items.filter((item) => item.reviewId !== review_id),
          );
       }
    }
@@ -98,7 +99,7 @@ function Review({ review, session, item_id }) {
       const dislikeCount = dislikes - 1;
       await dislikeAction(review_id, item_id, session, dislikeCount);
       setDislikedReviews((items) =>
-         items.filter((item) => item.reviewId !== review_id)
+         items.filter((item) => item.reviewId !== review_id),
       );
    }
    return (
@@ -203,14 +204,16 @@ function Review({ review, session, item_id }) {
             </div>
          </div>
 
-         {isOpenWarning && (
-            <ModalWindow onClose={() => setIsOpenWarning(false)}>
-               <ReviewWarning
-                  onClose={() => setIsOpenWarning(false)}
-                  type="like"
-               />
-            </ModalWindow>
-         )}
+         <AnimatePresence>
+            {isOpenWarning && (
+               <ModalWindow onClose={() => setIsOpenWarning(false)}>
+                  <ReviewWarning
+                     onClose={() => setIsOpenWarning(false)}
+                     type="like"
+                  />
+               </ModalWindow>
+            )}
+         </AnimatePresence>
       </div>
    );
 }

@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 
+import { AnimatePresence } from 'motion/react';
 import { deleteReviewAction } from '@/src/lib/actions';
 import { useLikedReviews } from '@/src/contexts/liked-reviews-context';
 import { useDislikedReviews } from '@/src/contexts/disliked-reviews-context';
@@ -34,35 +35,37 @@ function ReviewOperations({ review }) {
             Delete
          </button>
 
-         {isOpenDeleteModal && (
-            <ModalWindow onClose={() => setIsOpenDeleteModal(false)}>
-               <DeleteReview
-                  onClose={() => setIsOpenDeleteModal(false)}
-                  onDelete={() => {
-                     deleteReviewAction(review.id);
-                     setLikedReviews((prevReviews) =>
-                        prevReviews.filter(
-                           (item) => item.reviewId !== review.id
-                        )
-                     );
-                     setDislikedReviews((prevReviews) =>
-                        prevReviews.filter(
-                           (item) => item.reviewId !== review.id
-                        )
-                     );
-                  }}
-               />
-            </ModalWindow>
-         )}
+         <AnimatePresence>
+            {isOpenDeleteModal && (
+               <ModalWindow onClose={() => setIsOpenDeleteModal(false)}>
+                  <DeleteReview
+                     onClose={() => setIsOpenDeleteModal(false)}
+                     onDelete={() => {
+                        deleteReviewAction(review.id);
+                        setLikedReviews((prevReviews) =>
+                           prevReviews.filter(
+                              (item) => item.reviewId !== review.id,
+                           ),
+                        );
+                        setDislikedReviews((prevReviews) =>
+                           prevReviews.filter(
+                              (item) => item.reviewId !== review.id,
+                           ),
+                        );
+                     }}
+                  />
+               </ModalWindow>
+            )}
 
-         {isOpenEditModal && (
-            <ModalWindow onClose={() => setIsOpenEditModal(false)}>
-               <EditReviewForm
-                  review={review}
-                  onClose={() => setIsOpenEditModal(false)}
-               />
-            </ModalWindow>
-         )}
+            {isOpenEditModal && (
+               <ModalWindow onClose={() => setIsOpenEditModal(false)}>
+                  <EditReviewForm
+                     review={review}
+                     onClose={() => setIsOpenEditModal(false)}
+                  />
+               </ModalWindow>
+            )}
+         </AnimatePresence>
       </div>
    );
 }

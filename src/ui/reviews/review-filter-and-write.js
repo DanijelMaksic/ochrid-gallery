@@ -5,6 +5,7 @@ import { usePathname } from 'next/navigation';
 
 import { GoPencil } from 'react-icons/go';
 import { Italianno } from 'next/font/google';
+import { AnimatePresence } from 'motion/react';
 
 import ReviewForm from '@/src/ui/reviews/review-form';
 import FilterReviews from '@/src/ui/reviews/filter-reviews';
@@ -33,24 +34,24 @@ function ReviewFilterAndWrite({ reviews, orders, id, session }) {
 
    // Check if current item was ordered
    const userOrders = orders.filter(
-      (order) => order.email === session?.user.email
+      (order) => order.email === session?.user.email,
    );
    const cart = userOrders.map((order) => JSON.parse(order.cart));
    const itemWasOrderedArrOfArr = cart.map((cart) =>
-      cart.map((item) => item.itemId === id)
+      cart.map((item) => item.itemId === id),
    );
    const itemWasOrderedArr = itemWasOrderedArrOfArr.map((item) =>
-      item.includes(true)
+      item.includes(true),
    );
    const itemWasOrdered = itemWasOrderedArr.includes(true);
 
    // Check if current item was already reviewed
    const userReviews = reviews.filter(
-      (review) => review.user_id === session?.user.id
+      (review) => review.user_id === session?.user.id,
    );
    const currentItemId = Number(pathname.slice(7));
    const wasReviewedArr = userReviews.map(
-      (review) => review.item_id === currentItemId
+      (review) => review.item_id === currentItemId,
    );
    const wasReviewed = wasReviewedArr.includes(true);
 
@@ -84,33 +85,35 @@ function ReviewFilterAndWrite({ reviews, orders, id, session }) {
             </button>
          )}
 
-         {isOpenWarning && (
-            <ModalWindow onClose={() => setIsOpenWarning(false)}>
-               <ReviewWarning
-                  onClose={() => setIsOpenWarning(false)}
-                  type="review"
-               />
-            </ModalWindow>
-         )}
+         <AnimatePresence>
+            {isOpenWarning && (
+               <ModalWindow onClose={() => setIsOpenWarning(false)}>
+                  <ReviewWarning
+                     onClose={() => setIsOpenWarning(false)}
+                     type="review"
+                  />
+               </ModalWindow>
+            )}
 
-         {isOpenWrite && (
-            <ModalWindow onClose={() => setIsOpenWrite(false)}>
-               <ReviewForm
-                  onClose={() => setIsOpenWrite(false)}
-                  session={session}
-                  item_id={id}
-               />
-            </ModalWindow>
-         )}
+            {isOpenWrite && (
+               <ModalWindow onClose={() => setIsOpenWrite(false)}>
+                  <ReviewForm
+                     onClose={() => setIsOpenWrite(false)}
+                     session={session}
+                     item_id={id}
+                  />
+               </ModalWindow>
+            )}
 
-         {isOpenWarning2 && (
-            <ModalWindow onClose={() => setIsOpenWarning2(false)}>
-               <ReviewWarning
-                  onClose={() => setIsOpenWarning2(false)}
-                  type="alreadyReviewed"
-               />
-            </ModalWindow>
-         )}
+            {isOpenWarning2 && (
+               <ModalWindow onClose={() => setIsOpenWarning2(false)}>
+                  <ReviewWarning
+                     onClose={() => setIsOpenWarning2(false)}
+                     type="alreadyReviewed"
+                  />
+               </ModalWindow>
+            )}
+         </AnimatePresence>
       </div>
    );
 }

@@ -72,9 +72,7 @@ function AddressOperations({ address, countries }) {
                   />
                </ModalWindow>
             )}
-         </AnimatePresence>
 
-         <AnimatePresence>
             {isOpenEditModal && (
                <ModalWindow onClose={() => setIsOpenEditModal(false)}>
                   <EditBillingForm

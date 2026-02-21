@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useActionState, useEffect, useState, useTransition } from 'react';
 
-import { motion } from 'motion/react';
+import { AnimatePresence, motion } from 'motion/react';
 import { useCart } from '@/src/contexts/cart-context';
 import { createOrderAction } from '@/src/lib/actions';
 import { useOrder } from '@/src/contexts/order-context';
@@ -64,7 +64,7 @@ function BillingForm({ children, session, addresses }) {
          </div>
 
          {addresses.some(
-            (address) => address.user_id === session.user.userId
+            (address) => address.user_id === session.user.userId,
          ) && (
             <>
                <h3 className="text-2xl 2xl:text-xl font-semibold mt-4 2xl:mt-0 text-center xs:px-6 text-nowrap">
@@ -87,15 +87,9 @@ function BillingForm({ children, session, addresses }) {
                      (address) =>
                         address.user_id === session.user.userId && (
                            <AddressPreview key={address.id} address={address} />
-                        )
+                        ),
                   )}
                </div>
-
-               {Object.keys(favAddress).length ? null : (
-                  <h3 className="text-2xl 2xl:text-xl font-semibold mt-4 2xl:mt-0 text-center">
-                     Or use some other address
-                  </h3>
-               )}
             </>
          )}
 
@@ -106,142 +100,160 @@ function BillingForm({ children, session, addresses }) {
                isPending && 'opacity-50 pointer-events-none'
             }`}
          >
-            {/* HIDE BILLING FORM IF SAVED ADDRESS IS SELECTED, OTHERWISE SHOW EMPTY FORM */}
-            {Object.keys(favAddress).length ? null : (
-               <motion.div
-                  className="flex flex-col"
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  transition={{ duration: 0.2 }}
-               >
-                  {' '}
-                  <FormRow
-                     label="Full Name"
-                     error={
-                        state?.errors?.full_name && (
-                           <motion.p
-                              initial={{ opacity: 0 }}
-                              animate={{ opacity: 1 }}
-                              transition={{ duration: 0.1 }}
-                              className="text-[#CA3A3E] 2xl:text-lg"
-                           >
-                              {state?.errors?.full_name[0]}
-                           </motion.p>
-                        )
-                     }
+            <AnimatePresence>
+               {/* HIDE BILLING FORM IF SAVED ADDRESS IS SELECTED, OTHERWISE SHOW EMPTY FORM */}
+               {Object.keys(favAddress).length ? null : (
+                  <motion.div
+                     className="flex flex-col"
+                     key="billing-form"
+                     className="flex flex-col"
+                     initial={{ opacity: 0, height: 0 }}
+                     animate={{ opacity: 1, height: 'auto' }}
+                     exit={{ opacity: 0, height: 0 }}
+                     transition={{ duration: 0.2 }}
+                     style={{ overflow: 'hidden' }}
                   >
-                     <input
-                        type="text"
-                        id="full_name"
-                        name="full_name"
-                        defaultValue={
-                           favAddress.billing_name || order.full_name
-                        }
-                        className="border-2 border-primary-400  rounded-md px-4 py-1 focus-style transition-custom text-xl 2xl:text-lg w-full min-w-80"
-                     />
-                  </FormRow>
-                  <FormRow
-                     label="Address"
-                     error={
-                        state?.errors?.address && (
-                           <motion.p
-                              initial={{ opacity: 0 }}
-                              animate={{ opacity: 1 }}
-                              transition={{ duration: 0.1 }}
-                              className="text-[#CA3A3E] 2xl:text-lg"
-                           >
-                              {state?.errors?.address[0]}
-                           </motion.p>
-                        )
-                     }
-                  >
-                     <input
-                        type="text"
-                        id="address"
-                        name="address"
-                        defaultValue={
-                           favAddress.billing_address || order.address
-                        }
-                        className="border-2 border-primary-400  rounded-md px-4 py-1 focus-style transition-custom no-spinners 2xl:text-lg w-full min-w-80"
-                     />
-                  </FormRow>
-                  <div className="flex items-center xs:flex-col xs:items-start">
-                     <FormRow
-                        label="City"
-                        error={
-                           state?.errors?.city && (
-                              <motion.p
-                                 initial={{ opacity: 0 }}
-                                 animate={{ opacity: 1 }}
-                                 transition={{ duration: 0.1 }}
-                                 className="text-[#CA3A3E] 2xl:text-lg"
-                              >
-                                 {state?.errors?.city[0]}
-                              </motion.p>
-                           )
-                        }
-                     >
-                        <input
-                           type="text"
-                           id="city"
-                           name="city"
-                           defaultValue={favAddress.billing_city || order.city}
-                           className="border-2 border-primary-400  rounded-md px-4 py-1 focus-style transition-custom no-spinners 2xl:text-lg min-w-30 w-full"
-                        />
-                     </FormRow>
+                     <h3 className="text-2xl 2xl:text-xl font-semibold my-4 2xl:mt-0 text-center">
+                        Or use some other address
+                     </h3>
 
-                     <FormRow
-                        label="Post Code"
-                        error={
-                           state?.errors?.post_code && (
-                              <motion.p
-                                 initial={{ opacity: 0 }}
-                                 animate={{ opacity: 1 }}
-                                 transition={{ duration: 0.1 }}
-                                 className="text-[#CA3A3E] 2xl:text-lg"
-                              >
-                                 {state?.errors?.post_code[0]}
-                              </motion.p>
-                           )
-                        }
-                     >
-                        <input
-                           type="number"
-                           id="post_code"
-                           name="post_code"
-                           defaultValue={
-                              favAddress.billing_post_code || order.post_code
+                     <div>
+                        {' '}
+                        <FormRow
+                           label="Full Name"
+                           error={
+                              state?.errors?.full_name && (
+                                 <motion.p
+                                    initial={{ opacity: 0 }}
+                                    animate={{ opacity: 1 }}
+                                    transition={{ duration: 0.1 }}
+                                    className="text-[#CA3A3E] 2xl:text-lg"
+                                 >
+                                    {state?.errors?.full_name[0]}
+                                 </motion.p>
+                              )
                            }
-                           className="border-2 border-primary-400  rounded-md px-4 py-1 focus-style transition-custom no-spinners 2xl:text-lg min-w-30 w-full"
-                        />
-                     </FormRow>
-                  </div>
-                  {children}
-                  <FormRow
-                     label="Phone"
-                     error={
-                        state?.errors?.phone && (
-                           <motion.p
-                              initial={{ opacity: 0 }}
-                              animate={{ opacity: 1 }}
-                              transition={{ duration: 0.1 }}
-                              className="text-[#CA3A3E] 2xl:text-lg"
+                        >
+                           <input
+                              type="text"
+                              id="full_name"
+                              name="full_name"
+                              defaultValue={
+                                 favAddress.billing_name || order.full_name
+                              }
+                              className="border-2 border-primary-400  rounded-md px-4 py-1 focus-style transition-custom text-xl 2xl:text-lg w-full min-w-80"
+                           />
+                        </FormRow>
+                        <FormRow
+                           label="Address"
+                           error={
+                              state?.errors?.address && (
+                                 <motion.p
+                                    initial={{ opacity: 0 }}
+                                    animate={{ opacity: 1 }}
+                                    transition={{ duration: 0.1 }}
+                                    className="text-[#CA3A3E] 2xl:text-lg"
+                                 >
+                                    {state?.errors?.address[0]}
+                                 </motion.p>
+                              )
+                           }
+                        >
+                           <input
+                              type="text"
+                              id="address"
+                              name="address"
+                              defaultValue={
+                                 favAddress.billing_address || order.address
+                              }
+                              className="border-2 border-primary-400  rounded-md px-4 py-1 focus-style transition-custom no-spinners 2xl:text-lg w-full min-w-80"
+                           />
+                        </FormRow>
+                        <div className="flex items-center xs:flex-col xs:items-start">
+                           <FormRow
+                              label="City"
+                              error={
+                                 state?.errors?.city && (
+                                    <motion.p
+                                       initial={{ opacity: 0 }}
+                                       animate={{ opacity: 1 }}
+                                       transition={{ duration: 0.1 }}
+                                       className="text-[#CA3A3E] 2xl:text-lg"
+                                    >
+                                       {state?.errors?.city[0]}
+                                    </motion.p>
+                                 )
+                              }
                            >
-                              {state?.errors?.phone[0]}
-                           </motion.p>
-                        )
-                     }
-                  >
-                     <input
-                        type="number"
-                        id="phone"
-                        name="phone"
-                        defaultValue={favAddress.billing_phone || order.phone}
-                        className="border-2 border-primary-400  rounded-md px-4 py-1 focus-style transition-custom no-spinners 2xl:text-lg min-w-80 w-full"
-                     />
-                  </FormRow>
-               </motion.div>
-            )}
+                              <input
+                                 type="text"
+                                 id="city"
+                                 name="city"
+                                 defaultValue={
+                                    favAddress.billing_city || order.city
+                                 }
+                                 className="border-2 border-primary-400  rounded-md px-4 py-1 focus-style transition-custom no-spinners 2xl:text-lg min-w-30 w-full"
+                              />
+                           </FormRow>
+
+                           <FormRow
+                              label="Post Code"
+                              error={
+                                 state?.errors?.post_code && (
+                                    <motion.p
+                                       initial={{ opacity: 0 }}
+                                       animate={{ opacity: 1 }}
+                                       transition={{ duration: 0.1 }}
+                                       className="text-[#CA3A3E] 2xl:text-lg"
+                                    >
+                                       {state?.errors?.post_code[0]}
+                                    </motion.p>
+                                 )
+                              }
+                           >
+                              <input
+                                 type="number"
+                                 id="post_code"
+                                 name="post_code"
+                                 defaultValue={
+                                    favAddress.billing_post_code ||
+                                    order.post_code
+                                 }
+                                 className="border-2 border-primary-400  rounded-md px-4 py-1 focus-style transition-custom no-spinners 2xl:text-lg min-w-30 w-full"
+                              />
+                           </FormRow>
+                        </div>
+                        {children}
+                        <FormRow
+                           label="Phone"
+                           error={
+                              state?.errors?.phone && (
+                                 <motion.p
+                                    initial={{ opacity: 0 }}
+                                    animate={{ opacity: 1 }}
+                                    transition={{ duration: 0.1 }}
+                                    className="text-[#CA3A3E] 2xl:text-lg"
+                                 >
+                                    {state?.errors?.phone[0]}
+                                 </motion.p>
+                              )
+                           }
+                        >
+                           <input
+                              type="number"
+                              id="phone"
+                              name="phone"
+                              defaultValue={
+                                 favAddress.billing_phone || order.phone
+                              }
+                              className="border-2 border-primary-400  rounded-md px-4 py-1 focus-style transition-custom no-spinners 2xl:text-lg min-w-80 w-full"
+                           />
+                        </FormRow>
+                     </div>
+                  </motion.div>
+               )}
+            </AnimatePresence>
+
             {/* HIDDEN FIELDS */}
             <input
                type="hidden"

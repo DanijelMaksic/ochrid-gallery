@@ -2,12 +2,13 @@
 
 import { useState } from 'react';
 
+import { Italianno } from 'next/font/google';
 import { MdRateReview } from 'react-icons/md';
+import { AnimatePresence } from 'motion/react';
 
 import ReviewForm from '@/src/ui/reviews/review-form';
 import ReviewWarning from '@/src/ui/reviews/review-warning';
 import ModalWindow from '@/src/ui/cart-components/modal-window';
-import { Italianno } from 'next/font/google';
 
 const italianno = Italianno({
    subsets: ['latin'],
@@ -21,14 +22,14 @@ function NoReviewsFound({ session, item_id, orders }) {
 
    // Check if current item was ordered
    const userOrders = orders.filter(
-      (order) => order.email === session?.user.email
+      (order) => order.email === session?.user.email,
    );
    const cart = userOrders.map((order) => JSON.parse(order.cart));
    const itemWasOrderedArrOfArr = cart.map((cart) =>
-      cart.map((item) => item.itemId === item_id)
+      cart.map((item) => item.itemId === item_id),
    );
    const itemWasOrderedArr = itemWasOrderedArrOfArr.map((item) =>
-      item.includes(true)
+      item.includes(true),
    );
    const itemWasOrdered = itemWasOrderedArr.includes(true);
 
@@ -58,24 +59,26 @@ function NoReviewsFound({ session, item_id, orders }) {
             Write a review
          </button>
 
-         {isOpenWarning && (
-            <ModalWindow onClose={() => setIsOpenWarning(false)}>
-               <ReviewWarning
-                  onClose={() => setIsOpenWarning(false)}
-                  type="review"
-               />
-            </ModalWindow>
-         )}
+         <AnimatePresence>
+            {isOpenWarning && (
+               <ModalWindow onClose={() => setIsOpenWarning(false)}>
+                  <ReviewWarning
+                     onClose={() => setIsOpenWarning(false)}
+                     type="review"
+                  />
+               </ModalWindow>
+            )}
 
-         {isOpenWrite && (
-            <ModalWindow onClose={() => setIsOpenWrite(false)}>
-               <ReviewForm
-                  onClose={() => setIsOpenWrite(false)}
-                  session={session}
-                  item_id={item_id}
-               />
-            </ModalWindow>
-         )}
+            {isOpenWrite && (
+               <ModalWindow onClose={() => setIsOpenWrite(false)}>
+                  <ReviewForm
+                     onClose={() => setIsOpenWrite(false)}
+                     session={session}
+                     item_id={item_id}
+                  />
+               </ModalWindow>
+            )}
+         </AnimatePresence>
       </div>
    );
 }
