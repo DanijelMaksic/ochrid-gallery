@@ -13,7 +13,7 @@ import { useFavAddress } from '@/src/contexts/fav-address-context';
 import FormRow from '@/src/ui/checkout-components/form-row';
 import AddressPreview from '@/src/ui/checkout-components/address-preview';
 
-function BillingForm({ children, session, addresses }) {
+function BillingForm({ children, session, addresses, setIsDisabled }) {
    const [isMobile, setIsMobile] = useState(false);
 
    const { favAddress } = useFavAddress();
@@ -27,6 +27,8 @@ function BillingForm({ children, session, addresses }) {
       order,
       errors: {},
    });
+
+   if (state.errors === undefined) setIsDisabled(true);
 
    async function onSubmit(e) {
       e.preventDefault();

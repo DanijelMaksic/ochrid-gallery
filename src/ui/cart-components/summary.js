@@ -9,13 +9,17 @@ import { useCart } from '@/src/contexts/cart-context';
 import { useOrder } from '@/src/contexts/order-context';
 import { useNoteError } from '@/src/contexts/note-error-context';
 import { usePaymentMethod } from '@/src/contexts/payment-method-context';
+import { useActionState, useState } from 'react';
 
-function Summary({ type, session }) {
+function Summary({ type, session, isDisabled2 }) {
    const { cart, setCart } = useCart();
    const { order } = useOrder();
    const { noteError } = useNoteError();
    const { paymentMethod, setPaymentMethodError } = usePaymentMethod();
    const router = useRouter();
+
+   const [isDisabled1, setIsDisabled1] = useState(false);
+   const [isDisabled3, setIsDisabled3] = useState(false);
 
    const cartTotal = cart?.map((item) => item.total);
    const subtotal = cartTotal?.reduce((a, b) => a + b, 0);
@@ -23,6 +27,7 @@ function Summary({ type, session }) {
    const orderTotal = subtotal + shipping;
 
    function continueToBilling() {
+      setIsDisabled1(true);
       const newValue = cart?.map((item) => {
          if (item.itemId) {
             return {
@@ -42,6 +47,7 @@ function Summary({ type, session }) {
          setPaymentMethodError('You must choose a payment method');
          return;
       }
+      paymentMethod && setIsDisabled3(true);
       if (noteError) return;
 
       router.push('/review-order');
@@ -79,7 +85,7 @@ function Summary({ type, session }) {
             <Link
                href={'/billing-info'}
                onClick={continueToBilling}
-               className="py-3 2xl:py-2.5 bg-primary-900 text-primary-100 text-2xl 2xl:text-xl rounded-md hover:bg-primary-800 transition-custom my-4 text-center lg:w-fit lg:px-12 lg:self-end"
+               className={`py-3 2xl:py-2.5 bg-primary-900 text-primary-100 text-2xl 2xl:text-xl rounded-md hover:bg-primary-800 transition-custom my-4 text-center lg:w-fit lg:px-12 lg:self-end ${isDisabled1 && 'pointer-events-none opacity-50'}`}
             >
                {session ? 'Continue' : 'Sign in to continue'}
             </Link>
@@ -89,7 +95,7 @@ function Summary({ type, session }) {
             <button
                type="submit"
                form="billingInfoForm"
-               className="py-3 2xl:py-2.5 bg-primary-900 text-primary-100 text-2xl 2xl:text-xl rounded-md hover:bg-primary-800 transition-custom my-6 flex justify-center lg:w-fit lg:px-12 lg:self-end"
+               className={`py-3 2xl:py-2.5 bg-primary-900 text-primary-100 text-2xl 2xl:text-xl rounded-md hover:bg-primary-800 transition-custom my-6 flex justify-center lg:w-fit lg:px-12 lg:self-end ${isDisabled2 && 'pointer-events-none opacity-50'}`}
             >
                <span>Continue</span>
             </button>
@@ -99,7 +105,7 @@ function Summary({ type, session }) {
             <button
                onClick={continueToReviewOrder}
                type="button"
-               className="py-3 2xl:py-2.5 bg-primary-900 2xl:text-xl text-primary-100 text-2xl rounded-md hover:bg-primary-800 transition-custom my-6 flex justify-center lg:w-fit lg:px-12 lg:self-end"
+               className={`py-3 2xl:py-2.5 bg-primary-900 2xl:text-xl text-primary-100 text-2xl rounded-md hover:bg-primary-800 transition-custom my-6 flex justify-center lg:w-fit lg:px-12 lg:self-end ${isDisabled3 && 'pointer-events-none opacity-50'}`}
             >
                <span>Continue</span>
             </button>

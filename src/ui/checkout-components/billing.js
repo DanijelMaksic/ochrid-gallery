@@ -1,5 +1,6 @@
 'use client';
 
+import { useState } from 'react';
 import { motion } from 'motion/react';
 
 import Summary from '@/src/ui/cart-components/summary';
@@ -8,6 +9,8 @@ import BillingForm from '@/src/ui/checkout-components/billing-form';
 import SelectCountry from '@/src/ui/checkout-components/select-country';
 
 function Billing({ session, countries, addresses }) {
+   const [isDisabled, setIsDisabled] = useState(false);
+
    return (
       <motion.div
          initial={{ opacity: 0 }}
@@ -15,7 +18,11 @@ function Billing({ session, countries, addresses }) {
          transition={{ duration: 0.2 }}
          className="grid grid-cols-[1fr_38rem] 2xl:grid-cols-[1fr_30rem] lg:grid-cols-1"
       >
-         <BillingForm session={session} addresses={addresses}>
+         <BillingForm
+            session={session}
+            addresses={addresses}
+            setIsDisabled={setIsDisabled}
+         >
             <FormRow label="Country">
                <SelectCountry
                   name="country"
@@ -25,7 +32,7 @@ function Billing({ session, countries, addresses }) {
                />
             </FormRow>
          </BillingForm>
-         <Summary type="billing" />
+         <Summary type="billing" isDisabled2={isDisabled} />
       </motion.div>
    );
 }
