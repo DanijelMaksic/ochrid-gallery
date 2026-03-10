@@ -14,6 +14,7 @@ import { DislikedReviewsProvider } from '@/src/contexts/disliked-reviews-context
 import Sidebar from '@/src/ui/sidebar';
 import Header from '@/src/ui/homepage/header';
 import Footer from '@/src/ui/layout-components/footer';
+import { CartDisabledProvider } from '@/src/contexts/cart-disabled';
 
 const ovo = Ovo({
    subsets: ['latin'],
@@ -43,19 +44,21 @@ export default function RootLayout({ children }) {
 
                   <main id="page-wrap">
                      <CartProvider>
-                        <FavAddressProvider>
-                           <OrderProvider>
-                              <LikedReviewProvider>
-                                 <DislikedReviewsProvider>
-                                    <NoteErrorProvider>
-                                       <PaymentMethodProvider>
-                                          {children}
-                                       </PaymentMethodProvider>
-                                    </NoteErrorProvider>
-                                 </DislikedReviewsProvider>
-                              </LikedReviewProvider>
-                           </OrderProvider>
-                        </FavAddressProvider>
+                        <CartDisabledProvider>
+                           <FavAddressProvider>
+                              <OrderProvider>
+                                 <LikedReviewProvider>
+                                    <DislikedReviewsProvider>
+                                       <NoteErrorProvider>
+                                          <PaymentMethodProvider>
+                                             {children}
+                                          </PaymentMethodProvider>
+                                       </NoteErrorProvider>
+                                    </DislikedReviewsProvider>
+                                 </LikedReviewProvider>
+                              </OrderProvider>
+                           </FavAddressProvider>
+                        </CartDisabledProvider>
                      </CartProvider>
                   </main>
 

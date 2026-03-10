@@ -4,9 +4,11 @@ import Link from 'next/link';
 import { useEffect, useState } from 'react';
 
 import CartTableRow from '@/src/ui/cart-components/cart-table-row';
+import { useCartDisabled } from '@/src/contexts/cart-disabled';
 
 function CartTable({ cart, setCart, items, type, setIsOpenModal }) {
    const [isMobile, setIsMobile] = useState(false);
+   const { isCartDisabled } = useCartDisabled();
 
    useEffect(() => {
       const mediaQueryMobile = window.matchMedia('(max-width: 450px)');
@@ -24,7 +26,7 @@ function CartTable({ cart, setCart, items, type, setIsOpenModal }) {
 
                <button
                   onClick={() => setIsOpenModal(true)}
-                  className="text-primary-800 text-lg 2xl:text-base uppercase px-4 py-1 border-2 border-primary-300 hover:bg-primary-50 rounded-md transition-custom"
+                  className={`text-primary-800 text-lg 2xl:text-base uppercase px-4 py-1 border-2 border-primary-300 hover:bg-primary-50 rounded-md transition-custom ${isCartDisabled && 'pointer-events-none opacity-50'}`}
                >
                   {!isMobile ? 'Clear Cart' : 'Clear'}
                </button>
@@ -40,6 +42,7 @@ function CartTable({ cart, setCart, items, type, setIsOpenModal }) {
                   cart={cart}
                   setCart={setCart}
                   type={type}
+                  isCartDisabled={isCartDisabled}
                />
             ))}
          </div>

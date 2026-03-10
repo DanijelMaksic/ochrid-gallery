@@ -12,7 +12,14 @@ import ModalWindow from '@/src/ui/cart-components/modal-window';
 import DeleteCartItem from '@/src/ui/cart-components/delete-cart-item';
 import CartQuantitySelector from '@/src/ui/cart-components/cart-quantity-selector';
 
-function CartTableRow({ cartData, items, cart, setCart, type }) {
+function CartTableRow({
+   cartData,
+   items,
+   cart,
+   setCart,
+   type,
+   isCartDisabled,
+}) {
    const [isOpenModal, setIsOpenModal] = useState(false);
 
    const [isSmall, setIsSmall] = useState(false);
@@ -34,7 +41,7 @@ function CartTableRow({ cartData, items, cart, setCart, type }) {
       return (
          <div
             role="row"
-            className="grid grid-cols-[1fr_1.8fr_1fr_0.5fr_0.1fr] gap-12 py-2 border-b-2 border-primary-200  transition-custom items-center"
+            className={`grid grid-cols-[1fr_1.8fr_1fr_0.5fr_0.1fr] gap-12 py-2 border-b-2 border-primary-200  transition-custom items-center ${isCartDisabled && 'pointer-events-none opacity-50'}`}
          >
             <Link
                href={`/items/${slug}`}
