@@ -28,10 +28,9 @@ function BillingForm({ children, session, addresses, setIsDisabled }) {
       errors: {},
    });
 
-   if (state.errors === undefined) setIsDisabled(true);
-
    async function onSubmit(e) {
       e.preventDefault();
+      setIsDisabled(true);
       const formData = new FormData(e.currentTarget);
 
       startTransition(() => {
@@ -41,7 +40,11 @@ function BillingForm({ children, session, addresses, setIsDisabled }) {
 
    useEffect(() => {
       setOrder(state);
-      if (state.errors === undefined) router.push('/payment-method');
+      if (state.errors === undefined) {
+         router.push('/payment-method');
+      } else if (Object.keys(state.errors).length > 0) {
+         setIsDisabled(false);
+      }
    }, [state, setOrder, router]);
 
    useEffect(() => {

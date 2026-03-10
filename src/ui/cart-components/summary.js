@@ -10,6 +10,7 @@ import { useOrder } from '@/src/contexts/order-context';
 import { useNoteError } from '@/src/contexts/note-error-context';
 import { usePaymentMethod } from '@/src/contexts/payment-method-context';
 import { useActionState, useState } from 'react';
+import { CgSpinner } from 'react-icons/cg';
 
 function Summary({ type, session, isDisabled2 }) {
    const { cart, setCart } = useCart();
@@ -85,9 +86,19 @@ function Summary({ type, session, isDisabled2 }) {
             <Link
                href={'/billing-info'}
                onClick={continueToBilling}
-               className={`py-3 2xl:py-2.5 bg-primary-900 text-primary-100 text-2xl 2xl:text-xl rounded-md hover:bg-primary-800 transition-custom my-4 text-center lg:w-fit lg:px-12 lg:self-end ${isDisabled1 && 'pointer-events-none opacity-50'}`}
+               className={`py-3 2xl:py-2.5 bg-primary-900 text-primary-100 text-2xl 2xl:text-xl rounded-md hover:bg-primary-800 transition-custom my-6 flex justify-center lg:w-fit lg:px-12 lg:self-end ${isDisabled1 && 'pointer-events-none opacity-50'}`}
             >
-               {session ? 'Continue' : 'Sign in to continue'}
+               {session ? (
+                  isDisabled1 ? (
+                     <>
+                        <CgSpinner className="rotate size-7 2xl:size-7 xs:size-6" />
+                     </>
+                  ) : (
+                     <span>Continue</span>
+                  )
+               ) : (
+                  'Sign in to continue'
+               )}
             </Link>
          )}
 
@@ -97,7 +108,13 @@ function Summary({ type, session, isDisabled2 }) {
                form="billingInfoForm"
                className={`py-3 2xl:py-2.5 bg-primary-900 text-primary-100 text-2xl 2xl:text-xl rounded-md hover:bg-primary-800 transition-custom my-6 flex justify-center lg:w-fit lg:px-12 lg:self-end ${isDisabled2 && 'pointer-events-none opacity-50'}`}
             >
-               <span>Continue</span>
+               {isDisabled2 ? (
+                  <>
+                     <CgSpinner className="rotate size-7 2xl:size-7 xs:size-6" />
+                  </>
+               ) : (
+                  <span>Continue</span>
+               )}
             </button>
          )}
 
@@ -107,7 +124,13 @@ function Summary({ type, session, isDisabled2 }) {
                type="button"
                className={`py-3 2xl:py-2.5 bg-primary-900 2xl:text-xl text-primary-100 text-2xl rounded-md hover:bg-primary-800 transition-custom my-6 flex justify-center lg:w-fit lg:px-12 lg:self-end ${isDisabled3 && 'pointer-events-none opacity-50'}`}
             >
-               <span>Continue</span>
+               {isDisabled3 ? (
+                  <>
+                     <CgSpinner className="rotate size-7 2xl:size-7 xs:size-6" />
+                  </>
+               ) : (
+                  <span>Continue</span>
+               )}
             </button>
          )}
 
