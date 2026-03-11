@@ -2,16 +2,16 @@
 
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
+import { useActionState, useEffect, useState } from 'react';
 
+import { CgSpinner } from 'react-icons/cg';
 import { placeOrderAction } from '@/src/lib/actions';
 import { formatCurrency } from '@/src/utils/helpers';
 import { useCart } from '@/src/contexts/cart-context';
 import { useOrder } from '@/src/contexts/order-context';
+import { useCartDisabled } from '@/src/contexts/cart-disabled';
 import { useNoteError } from '@/src/contexts/note-error-context';
 import { usePaymentMethod } from '@/src/contexts/payment-method-context';
-import { useActionState, useEffect, useState } from 'react';
-import { CgSpinner } from 'react-icons/cg';
-import { useCartDisabled } from '@/src/contexts/cart-disabled';
 
 function Summary({ type, session, isDisabled2 }) {
    const { cart, setCart } = useCart();
