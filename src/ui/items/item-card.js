@@ -22,6 +22,7 @@ function ItemCard({ item }) {
       >
          <Link
             href={`/items/${slug}`}
+            data-testid="item-card"
             className={`flex flex-col border-2 border-primary-400 h-[21.20rem] lg:h-[26rem] xs:h-[25.3rem] rounded-md overflow-hidden hover:opacity-85 transition-all duration-200 ${
                !in_stock && 'opacity-65'
             }`}
