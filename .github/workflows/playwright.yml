@@ -29,6 +29,13 @@ jobs:
            run: npm ci
          - name: Build
            run: npm run build
+           env:
+              SUPABASE_URL: ${{ secrets.SUPABASE_URL}}
+              SUPABASE_KEY: ${{secrets.SUPABASE_KEY}}
+              NEXTAUTH_URL: ${{secrets.NEXTAUTH_URL}}
+              NEXTAUTH_SECRET: ${{secrets.NEXTAUTH_SECRET}}
+              NEXT_PUBLIC_ITEMS_PAGE_SIZE: ${{secrets.NEXT_PUBLIC_ITEMS_PAGE_SIZE}}
+              NEXT_PUBLIC_WISHLIST_PAGE_SIZE: ${{secrets.NEXT_PUBLIC_WISHLIST_PAGE_SIZE}}
          - name: Install Playwright Browsers
            run: npx playwright install --with-deps
          - name: Run Playwright tests
