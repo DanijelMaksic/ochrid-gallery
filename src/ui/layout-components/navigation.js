@@ -9,16 +9,12 @@ async function Navigation() {
    return (
       <div className="flex gap-8 lg:gap-6 items-center text-xl 2xl:text-lg lg:text-2xl mr-4">
          <div className="flex items-center gap-8 lg:gap-6">
-            <button>
-               <Link href="/" className="underlined-text">
-                  Home
-               </Link>
-            </button>
-            <button>
-               <Link href="/items" className="underlined-text">
-                  Icons
-               </Link>
-            </button>
+            <Link href="/" className="underlined-text">
+               Home
+            </Link>
+            <Link href="/items" className="underlined-text">
+               Icons
+            </Link>
          </div>
 
          <span>|</span>
