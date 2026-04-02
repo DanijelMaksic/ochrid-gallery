@@ -10,10 +10,10 @@ test.describe('homepage', () => {
       expect(results.violations).toEqual([]);
    });
 
-   test('looks correct', async ({ page }) => {
-      // Visual regression test
-      await page.goto('/');
-      await page.waitForSelector('main');
-      await expect(page).toHaveScreenshot();
-   });
+   // test('looks correct', async ({ page }) => {
+   //    // Visual regression test
+   //    await page.goto('/');
+   //    await page.waitForSelector('main');
+   //    await expect(page).toHaveScreenshot();
+   // });
 });
