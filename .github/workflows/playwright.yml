@@ -47,6 +47,15 @@ jobs:
               NEXTAUTH_SECRET: ${{secrets.NEXTAUTH_SECRET}}
               NEXT_PUBLIC_ITEMS_PAGE_SIZE: ${{secrets.NEXT_PUBLIC_ITEMS_PAGE_SIZE}}
               NEXT_PUBLIC_WISHLIST_PAGE_SIZE: ${{secrets.NEXT_PUBLIC_WISHLIST_PAGE_SIZE}}
+         - name: Update snapshots
+           if: failure()
+           run: npx playwright test --update-snapshots
+         - name: Commit snapshots
+           if: failure()
+           uses: stefanzweifel/git-auto-commit-action@v5
+           with:
+           commit_message: 'chore: update playwright snapshots'
+           file_pattern: '**/*-snapshots/**'
          - uses: actions/upload-artifact@v4
            if: ${{ !cancelled() }}
            with:
