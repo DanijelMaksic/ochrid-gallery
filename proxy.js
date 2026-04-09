@@ -5,10 +5,11 @@ export const proxy = auth;
 export const config = {
    matcher: [
       '/account',
-      '/billing-info',
-      '/account/orders',
-      '/account/reviews',
+      '/account/order-history',
       '/account/wishlist',
+      '/account/reviews',
+      '/account/address-book',
+      '/billing-info',
       '/payment-method',
       '/review-order',
       '/review-order/thank-you',
