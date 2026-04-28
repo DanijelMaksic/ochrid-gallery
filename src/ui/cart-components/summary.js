@@ -143,10 +143,7 @@ function Summary({ type, session, isDisabled2 }) {
 
          {type === 'placeOrder' && (
             <form action={placeOrderAction} className="lg:self-end">
-               <button
-                  href={'/review-order/thank-you'}
-                  className="py-3 2xl:py-2.5 bg-primary-900 text-primary-100 text-2xl 2xl:text-xl w-full rounded-md hover:bg-primary-800 transition-custom my-6 text-center lg:w-fit lg:px-12"
-               >
+               <button className="py-3 2xl:py-2.5 bg-primary-900 text-primary-100 text-2xl 2xl:text-xl w-full rounded-md hover:bg-primary-800 transition-custom my-6 text-center lg:w-fit lg:px-12">
                   Place Order
                </button>
 
