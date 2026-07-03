@@ -8,7 +8,7 @@ test('test', async ({ page }) => {
    await page.getByRole('button', { name: 'Continue Shopping' }).click();
    await page.waitForTimeout(500); // small wait for localStorage to update
 
-   // Check if item is located in localStorage
+   // Check if item is located in the localStorage
    const cart = await page.evaluate(() => {
       return JSON.parse(localStorage.getItem('cart'));
    });
