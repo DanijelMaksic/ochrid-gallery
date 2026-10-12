@@ -14,7 +14,7 @@ async function check() {
          return { ok: false, reason: `missing: ${missing.join(', ')}` };
 
       const supabase = createClient(url, key);
-      const { error } = await supabase.from('products').select('id').limit(1);
+      const { error } = await supabase.from('items').select('id').limit(1);
       if (error) return { ok: false, reason: error.message };
 
       return { ok: true };
