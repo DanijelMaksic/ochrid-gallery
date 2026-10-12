@@ -25,7 +25,6 @@ async function check() {
       };
    }
 }
-
 export async function GET() {
    const result = await check();
    return Response.json(result, { status: result.ok ? 200 : 503 });
