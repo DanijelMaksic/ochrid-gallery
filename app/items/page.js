@@ -55,6 +55,7 @@ async function Page({ searchParams }) {
    // SEARCH QUERY
 
    const searchQuery = params?.search || '';
+
    const searchedItems = sortedItems.filter(
       (item) =>
          item.name?.toLowerCase().includes(searchQuery) ||
